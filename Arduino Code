@@ -1,0 +1,28 @@
+int sensVal = 0; // pin A[0]
+int count = 0;
+int lastVal = 0;
+int countVal = 0;
+int NW = 0; //used to calculate avgNW
+int avgNW = 0; //avg when no water
+char printBuff[120]; 
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  int val = analogRead(sensVal); // Sensor read
+  ++count; 
+  NW = NW + val;
+  delay(1000);
+  sprintf(printBuff,"Count: %d", count);
+  Serial.println(printBuff);
+  sprintf(printBuff,"Sensor reads: %d", val);
+  Serial.println(printBuff);
+  lastVal = val;
+  avgNW = NW/count;
+  sprintf(printBuff, "Average water val = %d\n", avgNW); 
+  Serial.println(printBuff);
+}
